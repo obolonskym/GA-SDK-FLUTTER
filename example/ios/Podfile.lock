@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - GA-SDK-IOS (4.4.15)
+  - gameanalytics (1.0.0):
+    - Flutter
+    - GA-SDK-IOS
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - gameanalytics (from `.symlinks/plugins/gameanalytics/ios`)
+
+SPEC REPOS:
+  trunk:
+    - GA-SDK-IOS
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  gameanalytics:
+    :path: ".symlinks/plugins/gameanalytics/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  GA-SDK-IOS: f2e1e96fb25f79338eb63dce37a9303fe32fbeb2
+  gameanalytics: 997653b55c070d3ea5948e7bb4f0215f53f21c51
+
+PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
+
+COCOAPODS: 1.10.1

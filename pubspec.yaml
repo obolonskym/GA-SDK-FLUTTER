@@ -1,0 +1,37 @@
+name: gameanalytics
+description: Official Flutter SDK for GameAnalytics. GameAnalytics is a free analytics platform that helps game developers understand their players' behaviour by delivering relevant insights.
+version: 1.0.0
+homepage: https://gameanalytics.com
+repository: https://github.com/GameAnalytics/GA-SDK-FLUTTER
+documentation: https://gameanalytics.com/docs/flutter-sdk
+issue_tracker: https://github.com/GameAnalytics/GA-SDK-FLUTTER/issues
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  import_js_library: ^1.0.2
+  js: ^0.6.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.gameanalytics.sdk.flutter
+        pluginClass: GameanalyticsPlugin
+      ios:
+        pluginClass: GameanalyticsPlugin
+      web:
+        pluginClass: GameanalyticsWeb
+        fileName: web/gameanalytics_web.dart
+  assets:
+    - assets/GameAnalytics.js

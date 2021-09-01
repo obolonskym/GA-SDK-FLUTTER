@@ -1,2 +1,12 @@
 # GA-SDK-FLUTTER
-Repository for official GameAnalytics Fluytter SDK
+GameAnalytics SDK for Flutter.
+
+Documentation is located [here](https://gameanalytics.com/docs/flutter-sdk).
+
+If you have any issues or feedback regarding the SDK, please contact our friendly support team [here](https://gameanalytics.com/contact).
+
+> :information_source:
+>
+> The Flutter SDK include support for **iOS**, **Android** and **Web** platforms
+
+[Changelog](CHANGELOG.md)
