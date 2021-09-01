@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gameanalytics/gameanalytics.dart';
+import 'package:gameanalytics_sdk/gameanalytics.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('gameanalytics');
