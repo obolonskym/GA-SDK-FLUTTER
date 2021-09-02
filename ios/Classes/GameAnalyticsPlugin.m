@@ -1,12 +1,12 @@
-#import "GameanalyticsPlugin.h"
+#import "GameAnalyticsPlugin.h"
 #import <GameAnalytics/GameAnalytics.h>
 
-#define VERSION @"1.0.2"
+#define VERSION @"1.0.3"
 
-@implementation GameanalyticsPlugin
+@implementation GameAnalyticsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"gameanalytics" binaryMessenger:[registrar messenger]];
-    GameanalyticsPlugin* instance = [[GameanalyticsPlugin alloc] init];
+    GameAnalyticsPlugin* instance = [[GameAnalyticsPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];
 }
 

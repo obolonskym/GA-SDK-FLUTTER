@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.0.3**
+* fixed plugin class names
+
 **1.0.2**
 * added missing GameAnalytics.js file
 
