@@ -4,13 +4,12 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:import_js_library/import_js_library.dart';
 
 import 'gameanalytics_js.dart';
 
 /// A web implementation of the Gameanalytics plugin.
 class GameAnalyticsWeb {
-  static final String VERSION = "1.0.4";
+  static final String VERSION = "1.0.5";
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
@@ -18,8 +17,6 @@ class GameAnalyticsWeb {
       const StandardMethodCodec(),
       registrar,
     );
-
-    importJsLibrary(url: "./assets/GameAnalytics.js", flutterPluginName: "gameanalytics");
 
     final pluginInstance = GameAnalyticsWeb();
     channel.setMethodCallHandler(pluginInstance.handleMethodCall);
@@ -34,32 +31,38 @@ class GameAnalyticsWeb {
         return getPlatformVersion();
       case 'configureAvailableCustomDimensions01':
         final String customDimensions = call.arguments["customDimensions"];
-        final List<String> list = List<String>.from(jsonDecode(customDimensions));
+        final List<String> list =
+            List<String>.from(jsonDecode(customDimensions));
         GameAnalyticsJS.configureAvailableCustomDimensions01(list);
         break;
       case 'configureAvailableCustomDimensions02':
         final String customDimensions = call.arguments["customDimensions"];
-        final List<String> list = List<String>.from(jsonDecode(customDimensions));
+        final List<String> list =
+            List<String>.from(jsonDecode(customDimensions));
         GameAnalyticsJS.configureAvailableCustomDimensions02(list);
         break;
       case 'configureAvailableCustomDimensions03':
         final String customDimensions = call.arguments["customDimensions"];
-        final List<String> list = List<String>.from(jsonDecode(customDimensions));
+        final List<String> list =
+            List<String>.from(jsonDecode(customDimensions));
         GameAnalyticsJS.configureAvailableCustomDimensions03(list);
         break;
       case 'configureAvailableResourceCurrencies':
         final String resourceCurrencies = call.arguments["resourceCurrencies"];
-        final List<String> list = List<String>.from(jsonDecode(resourceCurrencies));
+        final List<String> list =
+            List<String>.from(jsonDecode(resourceCurrencies));
         GameAnalyticsJS.configureAvailableResourceCurrencies(list);
         break;
       case 'configureAvailableResourceCurrencies':
         final String resourceCurrencies = call.arguments["resourceCurrencies"];
-        final List<String> list = List<String>.from(jsonDecode(resourceCurrencies));
+        final List<String> list =
+            List<String>.from(jsonDecode(resourceCurrencies));
         GameAnalyticsJS.configureAvailableResourceCurrencies(list);
         break;
       case 'configureAvailableResourceItemTypes':
         final String resourceItemTypes = call.arguments["resourceItemTypes"];
-        final List<String> list = List<String>.from(jsonDecode(resourceItemTypes));
+        final List<String> list =
+            List<String>.from(jsonDecode(resourceItemTypes));
         GameAnalyticsJS.configureAvailableResourceItemTypes(list);
         break;
       case 'configureBuild':
@@ -84,7 +87,8 @@ class GameAnalyticsWeb {
         final String itemType = call.arguments["itemType"];
         final String itemId = call.arguments["itemId"];
         final String cartType = call.arguments["cartType"];
-        GameAnalyticsJS.addBusinessEvent(currency, amount, itemType, itemId, cartType);
+        GameAnalyticsJS.addBusinessEvent(
+            currency, amount, itemType, itemId, cartType);
         break;
       case 'addResourceEvent':
         final int flowType = call.arguments["flowType"];
@@ -92,20 +96,30 @@ class GameAnalyticsWeb {
         final double amount = call.arguments["amount"];
         final String itemType = call.arguments["itemType"];
         final String itemId = call.arguments["itemId"];
-        GameAnalyticsJS.addResourceEvent(flowType, currency, amount, itemType, itemId);
+        GameAnalyticsJS.addResourceEvent(
+            flowType, currency, amount, itemType, itemId);
         break;
       case 'addProgressionEvent':
-        final int flowType = call.arguments["flowType"];
+        final int flowType = call.arguments["progressionStatus"];
         final String progression01 = call.arguments["progression01"];
-        final String progression02 = call.arguments.containsKey("progression02") ? call.arguments["progression02"] : "";
-        final String progression03 = call.arguments.containsKey("progression03") ? call.arguments["progression03"] : "";
-        final double? score = call.arguments.containsKey("score") ? call.arguments["score"] : null;
+        final String progression02 = call.arguments.containsKey("progression02")
+            ? call.arguments["progression02"]
+            : "";
+        final String progression03 = call.arguments.containsKey("progression03")
+            ? call.arguments["progression03"]
+            : "";
+        final double? score = call.arguments.containsKey("score")
+            ? call.arguments["score"]
+            : null;
 
-        GameAnalyticsJS.addProgressionEvent(flowType, progression01, progression02, progression03, score);
+        GameAnalyticsJS.addProgressionEvent(
+            flowType, progression01, progression02, progression03, score);
         break;
       case 'addDesignEvent':
         final String eventId = call.arguments["eventId"];
-        final double? value = call.arguments.containsKey("value") ? call.arguments["value"] : null;
+        final double? value = call.arguments.containsKey("value")
+            ? call.arguments["value"]
+            : null;
 
         GameAnalyticsJS.addDesignEvent(eventId, value);
         break;
@@ -121,18 +135,15 @@ class GameAnalyticsWeb {
         final String adSdkName = call.arguments["adSdkName"];
         final String adPlacement = call.arguments["adPlacement"];
 
-        if(call.arguments.containsKey("noAdReason"))
-        {
+        if (call.arguments.containsKey("noAdReason")) {
           final int noAdReason = call.arguments["noAdReason"];
-          GameAnalyticsJS.addAdEventWithNoAdReason(adAction, adType, adSdkName, adPlacement, noAdReason);
-        }
-        else if(call.arguments.containsKey("duration"))
-        {
+          GameAnalyticsJS.addAdEventWithNoAdReason(
+              adAction, adType, adSdkName, adPlacement, noAdReason);
+        } else if (call.arguments.containsKey("duration")) {
           final int duration = call.arguments["duration"];
-          GameAnalyticsJS.addAdEventWithDuration(adAction, adType, adSdkName, adPlacement, duration);
-        }
-        else
-        {
+          GameAnalyticsJS.addAdEventWithDuration(
+              adAction, adType, adSdkName, adPlacement, duration);
+        } else {
           GameAnalyticsJS.addAdEvent(adAction, adType, adSdkName, adPlacement);
         }
         break;
@@ -176,8 +187,11 @@ class GameAnalyticsWeb {
         break;
       case 'getRemoteConfigsValueAsString':
         final String key = call.arguments["key"];
-        final String? defaultValue = call.arguments.containsKey("defaultValue") ? call.arguments["defaultValue"] : null;
-        return Future.value(GameAnalyticsJS.getRemoteConfigsValueAsString(key, defaultValue));
+        final String? defaultValue = call.arguments.containsKey("defaultValue")
+            ? call.arguments["defaultValue"]
+            : null;
+        return Future.value(
+            GameAnalyticsJS.getRemoteConfigsValueAsString(key, defaultValue));
       case 'isRemoteConfigsReady':
         return Future.value(GameAnalyticsJS.isRemoteConfigsReady());
       case 'getRemoteConfigsContentAsString':
@@ -189,7 +203,8 @@ class GameAnalyticsWeb {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details: 'gameanalytics for web doesn\'t implement \'${call.method}\'',
+          details:
+              'gameanalytics for web doesn\'t implement \'${call.method}\'',
         );
     }
   }

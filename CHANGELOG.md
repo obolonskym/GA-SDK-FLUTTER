@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.0.5**
+* removed import_js_library dependency
+
 **1.0.4**
 * fixes to podspec file
 
