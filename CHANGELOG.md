@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.0.4**
+* fixes to podspec file
+
 **1.0.3**
 * fixed plugin class names
 
