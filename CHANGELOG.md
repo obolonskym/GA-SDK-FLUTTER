@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.0.6**
+* added doc comments to sdk interface methods
+
 **1.0.5**
 * removed import_js_library dependency
 
