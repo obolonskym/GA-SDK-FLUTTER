@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.0.7**
+* updated documentation link
+
 **1.0.6**
 * added doc comments to sdk interface methods
 

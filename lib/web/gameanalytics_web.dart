@@ -9,7 +9,7 @@ import 'gameanalytics_js.dart';
 
 /// A web implementation of the Gameanalytics plugin.
 class GameAnalyticsWeb {
-  static final String VERSION = "1.0.6";
+  static final String VERSION = "1.0.7";
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
@@ -51,6 +51,7 @@ class GameAnalyticsWeb {
         final String resourceCurrencies = call.arguments["resourceCurrencies"];
         final List<String> list =
             List<String>.from(jsonDecode(resourceCurrencies));
+        GameAnalyticsJS.configureSdkGameEngineVersion("flutter " + VERSION);
         GameAnalyticsJS.configureAvailableResourceCurrencies(list);
         break;
       case 'configureAvailableResourceCurrencies':
