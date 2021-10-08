@@ -1,7 +1,7 @@
 #import "GameAnalyticsPlugin.h"
 #import <GameAnalytics/GameAnalytics.h>
 
-#define VERSION @"1.0.7"
+#define VERSION @"1.1.0"
 
 @implementation GameAnalyticsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -118,14 +118,19 @@
         NSString *itemId = args[@"itemId"];
         NSString *cartType = args[@"cartType"];
         NSString* receipt = args[@"receipt"];
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
 
         if(receipt == nil)
         {
-            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType autoFetchReceipt:YES];
+            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType autoFetchReceipt:YES customFields:fields_dict];
         }
         else
         {
-            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType receipt:receipt];
+            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType receipt:receipt customFields:fields_dict];
         }
     }
     else if ([@"addResourceEvent" isEqualToString:call.method])
@@ -136,8 +141,13 @@
         NSNumber *amount = args[@"amount"];
         NSString *itemType = args[@"itemType"];
         NSString *itemId = args[@"itemId"];
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
 
-        [GameAnalytics addResourceEventWithFlowType:(GAResourceFlowType)flowType currency:currency amount:amount itemType:itemType itemId:itemId];
+        [GameAnalytics addResourceEventWithFlowType:(GAResourceFlowType)flowType currency:currency amount:amount itemType:itemType itemId:itemId customFields:fields_dict];
     }
     else if ([@"addProgressionEvent" isEqualToString:call.method])
     {
@@ -149,6 +159,11 @@
         NSString* progression03 = args[@"progression03"];
         NSInteger score = 0;
         BOOL sendScore = NO;
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
 
         if(args[@"score"])
         {
@@ -158,11 +173,11 @@
 
         if(sendScore)
         {
-            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 score:score];
+            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 score:score customFields:fields_dict];
         }
         else
         {
-            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03];
+            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 customFields:fields_dict];
         }
     }
     else if ([@"addDesignEvent" isEqualToString:call.method])
@@ -172,6 +187,11 @@
         NSString* eventId = args[@"eventId"];
         NSNumber* value = nil;
         BOOL sendValue = NO;
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
 
         if(args[@"value"])
         {
@@ -181,11 +201,11 @@
 
         if(sendValue)
         {
-            [GameAnalytics addDesignEventWithEventId:eventId value:value];
+            [GameAnalytics addDesignEventWithEventId:eventId value:value customFields:fields_dict];
         }
         else
         {
-            [GameAnalytics addDesignEventWithEventId:eventId];
+            [GameAnalytics addDesignEventWithEventId:eventId customFields:fields_dict];
         }
     }
     else if ([@"addErrorEvent" isEqualToString:call.method])
@@ -194,8 +214,13 @@
 
         NSInteger severity = [args[@"severity"] intValue];
         NSString* message = args[@"message"];
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
 
-        [GameAnalytics addErrorEventWithSeverity:(GAErrorSeverity)severity message:message];
+        [GameAnalytics addErrorEventWithSeverity:(GAErrorSeverity)severity message:message customFields:fields_dict];
     }
     else if ([@"addAdEvent" isEqualToString:call.method])
     {
@@ -208,6 +233,11 @@
         NSInteger duration = 0;
         BOOL sendDuration = NO;
         NSInteger noAdReason = 0;
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
 
         if(args != nil)
         {
@@ -222,11 +252,11 @@
 
         if(sendDuration)
         {
-            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement duration:duration];
+            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement duration:duration customFields:fields_dict];
         }
         else
         {
-            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement noAdReason:(GAAdError)noAdReason];
+            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement noAdReason:(GAAdError)noAdReason customFields:fields_dict];
         }
     }
     else if ([@"setEnabledInfoLog" isEqualToString:call.method])

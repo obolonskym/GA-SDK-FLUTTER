@@ -9,7 +9,7 @@ import 'gameanalytics_js.dart';
 
 /// A web implementation of the Gameanalytics plugin.
 class GameAnalyticsWeb {
-  static final String VERSION = "1.0.7";
+  static final String VERSION = "1.1.0";
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
@@ -88,8 +88,11 @@ class GameAnalyticsWeb {
         final String itemType = call.arguments["itemType"];
         final String itemId = call.arguments["itemId"];
         final String cartType = call.arguments["cartType"];
+        final Map fields = call.arguments.containsKey("customFields")
+            ? jsonDecode(call.arguments["customFields"])
+            : new Map();
         GameAnalyticsJS.addBusinessEvent(
-            currency, amount, itemType, itemId, cartType);
+            currency, amount, itemType, itemId, cartType, fields);
         break;
       case 'addResourceEvent':
         final int flowType = call.arguments["flowType"];
@@ -97,8 +100,11 @@ class GameAnalyticsWeb {
         final double amount = call.arguments["amount"];
         final String itemType = call.arguments["itemType"];
         final String itemId = call.arguments["itemId"];
+        final Map fields = call.arguments.containsKey("customFields")
+            ? jsonDecode(call.arguments["customFields"])
+            : new Map();
         GameAnalyticsJS.addResourceEvent(
-            flowType, currency, amount, itemType, itemId);
+            flowType, currency, amount, itemType, itemId, fields);
         break;
       case 'addProgressionEvent':
         final int flowType = call.arguments["progressionStatus"];
@@ -112,40 +118,53 @@ class GameAnalyticsWeb {
         final double? score = call.arguments.containsKey("score")
             ? call.arguments["score"]
             : null;
+        final Map fields = call.arguments.containsKey("customFields")
+            ? jsonDecode(call.arguments["customFields"])
+            : new Map();
 
-        GameAnalyticsJS.addProgressionEvent(
-            flowType, progression01, progression02, progression03, score);
+        GameAnalyticsJS.addProgressionEvent(flowType, progression01,
+            progression02, progression03, score, fields);
         break;
       case 'addDesignEvent':
         final String eventId = call.arguments["eventId"];
         final double? value = call.arguments.containsKey("value")
             ? call.arguments["value"]
             : null;
+        final Map fields = call.arguments.containsKey("customFields")
+            ? jsonDecode(call.arguments["customFields"])
+            : new Map();
 
-        GameAnalyticsJS.addDesignEvent(eventId, value);
+        GameAnalyticsJS.addDesignEvent(eventId, value, fields);
         break;
       case 'addErrorEvent':
         final int severity = call.arguments["severity"];
         final String message = call.arguments["message"];
+        final Map fields = call.arguments.containsKey("customFields")
+            ? jsonDecode(call.arguments["customFields"])
+            : new Map();
 
-        GameAnalyticsJS.addErrorEvent(severity, message);
+        GameAnalyticsJS.addErrorEvent(severity, message, fields);
         break;
       case 'addAdEvent':
         final int adAction = call.arguments["adAction"];
         final int adType = call.arguments["adType"];
         final String adSdkName = call.arguments["adSdkName"];
         final String adPlacement = call.arguments["adPlacement"];
+        final Map fields = call.arguments.containsKey("customFields")
+            ? jsonDecode(call.arguments["customFields"])
+            : new Map();
 
         if (call.arguments.containsKey("noAdReason")) {
           final int noAdReason = call.arguments["noAdReason"];
           GameAnalyticsJS.addAdEventWithNoAdReason(
-              adAction, adType, adSdkName, adPlacement, noAdReason);
+              adAction, adType, adSdkName, adPlacement, noAdReason, fields);
         } else if (call.arguments.containsKey("duration")) {
           final int duration = call.arguments["duration"];
           GameAnalyticsJS.addAdEventWithDuration(
-              adAction, adType, adSdkName, adPlacement, duration);
+              adAction, adType, adSdkName, adPlacement, duration, fields);
         } else {
-          GameAnalyticsJS.addAdEvent(adAction, adType, adSdkName, adPlacement);
+          GameAnalyticsJS.addAdEvent(
+              adAction, adType, adSdkName, adPlacement, fields);
         }
         break;
       case 'setEnabledInfoLog':

@@ -126,6 +126,15 @@ class GameAnalytics {
   ///   "receipt": "test_receipt",
   ///   "signature": "test_signature"
   /// });
+  ///
+  /// GameAnalytics.addBusinessEvent({
+  ///   "currency": "USD",
+  ///   "amount": 99,
+  ///   "itemType": "weapons",
+  ///   "itemId": "shotgun",
+  ///   "cartType": "end_of_level",
+  ///   "customFields": [fields_in_json_string]
+  /// });
   static Future<void> addBusinessEvent([dynamic arguments]) async {
     await _channel.invokeMethod('addBusinessEvent', arguments);
   }
@@ -139,6 +148,15 @@ class GameAnalytics {
   ///   "amount": 100,
   ///   "itemType": "lives",
   ///   "itemId": "5lives"
+  /// });
+  ///
+  /// GameAnalytics.addResourceEvent({
+  ///   "flowType": GAResourceFlowType.Source,
+  ///   "currency": "gems",
+  ///   "amount": 100,
+  ///   "itemType": "lives",
+  ///   "itemId": "5lives",
+  ///   "customFields": [fields_in_json_string]
   /// });
   static Future<void> addResourceEvent([dynamic arguments]) async {
     await _channel.invokeMethod('addResourceEvent', arguments);
@@ -162,6 +180,15 @@ class GameAnalytics {
   ///   "progression03": "phase01",
   ///   "score": 666
   /// });
+  ///
+  /// GameAnalytics.addProgressionEvent({
+  ///   "progressionStatus": GAProgressionStatus.Complete,
+  ///   "progression01": "world01",
+  ///   "progression02": "level01",
+  ///   "progression03": "phase01",
+  ///   "score": 666,
+  ///   "customFields": [fields_in_json_string]
+  /// });
   static Future<void> addProgressionEvent([dynamic arguments]) async {
     await _channel.invokeMethod('addProgressionEvent', arguments);
   }
@@ -175,6 +202,12 @@ class GameAnalytics {
   ///   "eventId": "some:other:event",
   ///   "value": 666
   /// });
+  ///
+  /// GameAnalytics.addDesignEvent({
+  ///   "eventId": "some:other:event",
+  ///   "value": 666,
+  ///   "customFields": [fields_in_json_string]
+  /// });
   static Future<void> addDesignEvent([dynamic arguments]) async {
     await _channel.invokeMethod('addDesignEvent', arguments);
   }
@@ -185,6 +218,12 @@ class GameAnalytics {
   /// GameAnalytics.addErrorEvent({
   ///   "severity": GAErrorSeverity.Error,
   ///   "message": "This is an error message!!!"
+  /// });
+  ///
+  /// GameAnalytics.addErrorEvent({
+  ///   "severity": GAErrorSeverity.Error,
+  ///   "message": "This is an error message!!!",
+  ///   "customFields": [fields_in_json_string]
   /// });
   static Future<void> addErrorEvent([dynamic arguments]) async {
     await _channel.invokeMethod('addErrorEvent', arguments);
@@ -198,6 +237,14 @@ class GameAnalytics {
   ///   "adType": GAAdType.Interstitial,
   ///   "adSdkName": "mopub",
   ///   "adPlacement": "end_of_level"
+  /// });
+  ///
+  /// GameAnalytics.addAdEvent({
+  ///   "adAction": GAAdAction.Show,
+  ///   "adType": GAAdType.Interstitial,
+  ///   "adSdkName": "mopub",
+  ///   "adPlacement": "end_of_level",
+  ///   "customFields": [fields_in_json_string]
   /// });
   static Future<void> addAdEvent([dynamic arguments]) async {
     await _channel.invokeMethod('addAdEvent', arguments);

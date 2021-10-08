@@ -24,7 +24,7 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
 {
     private MethodChannel channel;
     private Activity activity;
-    private static final String VERSION = "1.0.7";
+    private static final String VERSION = "1.1.0";
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding)
@@ -183,6 +183,11 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             String itemType = call.argument("itemType");
             String itemId = call.argument("itemId");
             String cartType = call.argument("cartType");
+            String fields = "{}";
+            if (call.hasArgument("customFields"))
+            {
+                fields = call.argument("customFields");
+            }
 
             if(amount != null)
             {
@@ -190,11 +195,12 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
                 {
                     String receipt = call.argument("receipt");
                     String signature = call.argument("signature");
-                    GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType, receipt, "google_play", signature);
+                    GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType, receipt, "google_play", signature,
+                            fields);
                 }
                 else
                 {
-                    GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType);
+                    GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType, fields);
                 }
             }
             else
@@ -209,10 +215,14 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             Number amount = call.argument("amount");
             String itemType = call.argument("itemType");
             String itemId = call.argument("itemId");
+            String fields = "{}";
+            if (call.hasArgument("customFields")) {
+                fields = call.argument("customFields");
+            }
 
             if(flowType != null && amount != null)
             {
-                GameAnalytics.addResourceEvent(flowType, currency, amount.floatValue(), itemType, itemId);
+                GameAnalytics.addResourceEvent(flowType, currency, amount.floatValue(), itemType, itemId, fields);
             }
             else
             {
@@ -240,16 +250,21 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
                 score = call.argument("score");
                 sendScore = true;
             }
+            String fields = "{}";
+            if (call.hasArgument("customFields")) {
+                fields = call.argument("customFields");
+            }
 
             if(progressionStatus != null)
             {
                 if (sendScore && score != null)
                 {
-                    GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03, score.doubleValue());
+                    GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03, score.doubleValue(), fields);
                 }
                 else
                 {
-                    GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03);
+                    GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03,
+                            fields);
                 }
             }
             else
@@ -267,24 +282,32 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
                 value = call.argument("value");
                 sendValue = true;
             }
+            String fields = "{}";
+            if (call.hasArgument("customFields")) {
+                fields = call.argument("customFields");
+            }
 
             if (sendValue && value != null)
             {
-                GameAnalytics.addDesignEvent(eventId, value.doubleValue());
+                GameAnalytics.addDesignEvent(eventId, value.doubleValue(), fields);
             }
             else
             {
-                GameAnalytics.addDesignEvent(eventId);
+                GameAnalytics.addDesignEvent(eventId, fields);
             }
         }
         else if (call.method.equals("addErrorEvent"))
         {
             Integer severity = call.argument("severity");
             String message = call.argument("message");
+            String fields = "{}";
+            if (call.hasArgument("customFields")) {
+                fields = call.argument("customFields");
+            }
 
             if(severity != null)
             {
-                GameAnalytics.addErrorEvent(severity, message);
+                GameAnalytics.addErrorEvent(severity, message, fields);
             }
             else
             {
@@ -311,20 +334,24 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
                 noAdReason = call.argument("noAdReason");
                 sendNoAdReason = true;
             }
+            String fields = "{}";
+            if (call.hasArgument("customFields")) {
+                fields = call.argument("customFields");
+            }
 
             if(adAction != null && adType != null)
             {
                 if (sendDuration && duration != null)
                 {
-                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, duration);
+                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, duration, fields);
                 }
                 else if (sendNoAdReason && noAdReason != null)
                 {
-                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, noAdReason);
+                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, noAdReason, fields);
                 }
                 else
                 {
-                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement);
+                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, fields);
                 }
             }
             else

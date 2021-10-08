@@ -21,23 +21,25 @@ class GameAnalyticsJS {
       String sdkGameEngineVersion);
   external static void initialize(String gameKey, String secretKey);
   external static void addBusinessEvent(String currency, int amount,
-      String itemType, String itemId, String cartType);
+      String itemType, String itemId, String cartType, Map fields);
   external static void addResourceEvent(int flowType, String currency,
-      double amount, String itemType, String itemId);
+      double amount, String itemType, String itemId, Map fields);
   external static void addProgressionEvent(
       int addProgressionEvent,
       String progression01,
       String progression02,
       String progression03,
-      double? score);
-  external static void addDesignEvent(String eventId, double? value);
-  external static void addErrorEvent(int severity, String message);
+      double? score,
+      Map fields);
+  external static void addDesignEvent(
+      String eventId, double? value, Map fields);
+  external static void addErrorEvent(int severity, String message, Map fields);
   external static void addAdEventWithNoAdReason(int adAction, int adType,
-      String adSdkName, String adPlacement, int noAdReason);
+      String adSdkName, String adPlacement, int noAdReason, Map fields);
   external static void addAdEventWithDuration(int adAction, int adType,
-      String adSdkName, String adPlacement, int duration);
-  external static void addAdEvent(
-      int adAction, int adType, String adSdkName, String adPlacement);
+      String adSdkName, String adPlacement, int duration, Map fields);
+  external static void addAdEvent(int adAction, int adType, String adSdkName,
+      String adPlacement, Map fields);
   external static void setEnabledInfoLog(bool flag);
   external static void setEnabledVerboseLog(bool flag);
   external static void setEnabledManualSessionHandling(bool flag);

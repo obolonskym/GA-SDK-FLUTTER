@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.1.0**
+* added custom event fields feature
+
 **1.0.7**
 * updated documentation link
 
