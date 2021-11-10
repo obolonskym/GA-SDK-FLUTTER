@@ -289,6 +289,12 @@ class GameAnalytics {
         .invokeMethod('setCustomDimension03', {'dimension': dimension});
   }
 
+  /// Set global custom event fields
+  static Future<void> setGlobalCustomEventFields(String customFields) async {
+    await _channel.invokeMethod(
+        'setGlobalCustomEventFields', {'customFields': customFields});
+  }
+
   /// Start a new session.
   static Future<void> startSession() async {
     await _channel.invokeMethod('startSession');

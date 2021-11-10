@@ -47,6 +47,7 @@ class GameAnalyticsJS {
   external static void setCustomDimension01(String dimension);
   external static void setCustomDimension02(String dimension);
   external static void setCustomDimension03(String dimension);
+  external static void setGlobalCustomEventFields(Map customFields);
   external static void startSession();
   external static void endSession();
   external static String getRemoteConfigsValueAsString(

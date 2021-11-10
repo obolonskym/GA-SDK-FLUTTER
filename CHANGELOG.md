@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.2.0**
+* added global custom event fields function to allow to add custom fields to events sent automatically by the SDK
+
 **1.1.0**
 * added custom event fields feature
 

@@ -1,7 +1,7 @@
 #import "GameAnalyticsPlugin.h"
 #import <GameAnalytics/GameAnalytics.h>
 
-#define VERSION @"1.1.0"
+#define VERSION @"1.2.0"
 
 @implementation GameAnalyticsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -312,6 +312,16 @@
             dimension = @"";
         }
         [GameAnalytics setCustomDimension03:dimension];
+    }
+    else if ([@"setGlobalCustomEventFields" isEqualToString:call.method])
+    {
+        NSMutableDictionary* args = call.arguments;
+        NSDictionary *fields_dict = nil;
+        if (args[@"customFields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
+        [GameAnalytics setGlobalCustomEventFields:fields_dict];
     }
     else if ([@"startSession" isEqualToString:call.method])
     {
