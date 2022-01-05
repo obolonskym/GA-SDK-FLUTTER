@@ -1,7 +1,7 @@
 #import "GameAnalyticsPlugin.h"
 #import <GameAnalytics/GameAnalytics.h>
 
-#define VERSION @"1.2.1"
+#define VERSION @"1.2.2"
 
 @implementation GameAnalyticsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -123,14 +123,19 @@
         {
             fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
         }
+        BOOL mergeFields = NO;
+        if (args[@"mergeFields"])
+        {
+            mergeFields = [args[@"mergeFields"] boolValue];
+        }
 
         if(receipt == nil)
         {
-            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType autoFetchReceipt:YES customFields:fields_dict];
+            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType autoFetchReceipt:YES customFields:fields_dict mergeFields:mergeFields];
         }
         else
         {
-            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType receipt:receipt customFields:fields_dict];
+            [GameAnalytics addBusinessEventWithCurrency:currency amount:amount itemType:itemType itemId:itemId cartType:cartType receipt:receipt customFields:fields_dict mergeFields:mergeFields];
         }
     }
     else if ([@"addResourceEvent" isEqualToString:call.method])
@@ -146,8 +151,13 @@
         {
             fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
         }
+        BOOL mergeFields = NO;
+        if (args[@"mergeFields"])
+        {
+            mergeFields = [args[@"mergeFields"] boolValue];
+        }
 
-        [GameAnalytics addResourceEventWithFlowType:(GAResourceFlowType)flowType currency:currency amount:amount itemType:itemType itemId:itemId customFields:fields_dict];
+        [GameAnalytics addResourceEventWithFlowType:(GAResourceFlowType)flowType currency:currency amount:amount itemType:itemType itemId:itemId customFields:fields_dict mergeFields:mergeFields];
     }
     else if ([@"addProgressionEvent" isEqualToString:call.method])
     {
@@ -164,6 +174,11 @@
         {
             fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
         }
+        BOOL mergeFields = NO;
+        if (args[@"mergeFields"])
+        {
+            mergeFields = [args[@"mergeFields"] boolValue];
+        }
 
         if(args[@"score"])
         {
@@ -173,11 +188,11 @@
 
         if(sendScore)
         {
-            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 score:score customFields:fields_dict];
+            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 score:score customFields:fields_dict mergeFields:mergeFields];
         }
         else
         {
-            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 customFields:fields_dict];
+            [GameAnalytics addProgressionEventWithProgressionStatus:(GAProgressionStatus)progressionStatus progression01:progression01 progression02:progression02 progression03:progression03 customFields:fields_dict mergeFields:mergeFields];
         }
     }
     else if ([@"addDesignEvent" isEqualToString:call.method])
@@ -192,6 +207,11 @@
         {
             fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
         }
+        BOOL mergeFields = NO;
+        if (args[@"mergeFields"])
+        {
+            mergeFields = [args[@"mergeFields"] boolValue];
+        }
 
         if(args[@"value"])
         {
@@ -201,11 +221,11 @@
 
         if(sendValue)
         {
-            [GameAnalytics addDesignEventWithEventId:eventId value:value customFields:fields_dict];
+            [GameAnalytics addDesignEventWithEventId:eventId value:value customFields:fields_dict mergeFields:mergeFields];
         }
         else
         {
-            [GameAnalytics addDesignEventWithEventId:eventId customFields:fields_dict];
+            [GameAnalytics addDesignEventWithEventId:eventId customFields:fields_dict mergeFields:mergeFields];
         }
     }
     else if ([@"addErrorEvent" isEqualToString:call.method])
@@ -219,8 +239,13 @@
         {
             fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
         }
+        BOOL mergeFields = NO;
+        if (args[@"mergeFields"])
+        {
+            mergeFields = [args[@"mergeFields"] boolValue];
+        }
 
-        [GameAnalytics addErrorEventWithSeverity:(GAErrorSeverity)severity message:message customFields:fields_dict];
+        [GameAnalytics addErrorEventWithSeverity:(GAErrorSeverity)severity message:message customFields:fields_dict mergeFields:mergeFields];
     }
     else if ([@"addAdEvent" isEqualToString:call.method])
     {
@@ -238,6 +263,11 @@
         {
             fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"customFields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
         }
+        BOOL mergeFields = NO;
+        if (args[@"mergeFields"])
+        {
+            mergeFields = [args[@"mergeFields"] boolValue];
+        }
 
         if(args != nil)
         {
@@ -252,11 +282,11 @@
 
         if(sendDuration)
         {
-            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement duration:duration customFields:fields_dict];
+            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement duration:duration customFields:fields_dict mergeFields:mergeFields];
         }
         else
         {
-            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement noAdReason:(GAAdError)noAdReason customFields:fields_dict];
+            [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement noAdReason:(GAAdError)noAdReason customFields:fields_dict mergeFields:mergeFields];
         }
     }
     else if ([@"setEnabledInfoLog" isEqualToString:call.method])

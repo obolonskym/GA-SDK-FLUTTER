@@ -24,7 +24,7 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
 {
     private MethodChannel channel;
     private Activity activity;
-    private static final String VERSION = "1.2.1";
+    private static final String VERSION = "1.2.2";
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding)
@@ -188,6 +188,11 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             {
                 fields = call.argument("customFields");
             }
+            boolean mergeFields = false;
+            if (call.hasArgument("mergeFields")) {
+                Boolean b = call.argument("mergeFields");
+                mergeFields = b.booleanValue();
+            }
 
             if(amount != null)
             {
@@ -196,11 +201,11 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
                     String receipt = call.argument("receipt");
                     String signature = call.argument("signature");
                     GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType, receipt, "google_play", signature,
-                            fields);
+                            fields, mergeFields);
                 }
                 else
                 {
-                    GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType, fields);
+                    GameAnalytics.addBusinessEvent(currency, amount, itemType, itemId, cartType, fields, mergeFields);
                 }
             }
             else
@@ -219,10 +224,16 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             if (call.hasArgument("customFields")) {
                 fields = call.argument("customFields");
             }
+            boolean mergeFields = false;
+            if (call.hasArgument("mergeFields")) {
+                Boolean b = call.argument("mergeFields");
+                mergeFields = b.booleanValue();
+            }
 
             if(flowType != null && amount != null)
             {
-                GameAnalytics.addResourceEvent(flowType, currency, amount.floatValue(), itemType, itemId, fields);
+                GameAnalytics.addResourceEvent(flowType, currency, amount.floatValue(), itemType, itemId, fields,
+                        mergeFields);
             }
             else
             {
@@ -254,17 +265,23 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             if (call.hasArgument("customFields")) {
                 fields = call.argument("customFields");
             }
+            boolean mergeFields = false;
+            if (call.hasArgument("mergeFields")) {
+                Boolean b = call.argument("mergeFields");
+                mergeFields = b.booleanValue();
+            }
 
             if(progressionStatus != null)
             {
                 if (sendScore && score != null)
                 {
-                    GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03, score.doubleValue(), fields);
+                    GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03, score.doubleValue(), fields,
+                            mergeFields);
                 }
                 else
                 {
                     GameAnalytics.addProgressionEvent(progressionStatus, progression01, progression02, progression03,
-                            fields);
+                            fields, mergeFields);
                 }
             }
             else
@@ -286,14 +303,19 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             if (call.hasArgument("customFields")) {
                 fields = call.argument("customFields");
             }
+            boolean mergeFields = false;
+            if (call.hasArgument("mergeFields")) {
+                Boolean b = call.argument("mergeFields");
+                mergeFields = b.booleanValue();
+            }
 
             if (sendValue && value != null)
             {
-                GameAnalytics.addDesignEvent(eventId, value.doubleValue(), fields);
+                GameAnalytics.addDesignEvent(eventId, value.doubleValue(), fields, mergeFields);
             }
             else
             {
-                GameAnalytics.addDesignEvent(eventId, fields);
+                GameAnalytics.addDesignEvent(eventId, fields, mergeFields);
             }
         }
         else if (call.method.equals("addErrorEvent"))
@@ -304,10 +326,15 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             if (call.hasArgument("customFields")) {
                 fields = call.argument("customFields");
             }
+            boolean mergeFields = false;
+            if (call.hasArgument("mergeFields")) {
+                Boolean b = call.argument("mergeFields");
+                mergeFields = b.booleanValue();
+            }
 
             if(severity != null)
             {
-                GameAnalytics.addErrorEvent(severity, message, fields);
+                GameAnalytics.addErrorEvent(severity, message, fields, mergeFields);
             }
             else
             {
@@ -338,20 +365,25 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
             if (call.hasArgument("customFields")) {
                 fields = call.argument("customFields");
             }
+            boolean mergeFields = false;
+            if (call.hasArgument("mergeFields")) {
+                Boolean b = call.argument("mergeFields");
+                mergeFields = b.booleanValue();
+            }
 
             if(adAction != null && adType != null)
             {
                 if (sendDuration && duration != null)
                 {
-                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, duration, fields);
+                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, duration, fields, mergeFields);
                 }
                 else if (sendNoAdReason && noAdReason != null)
                 {
-                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, noAdReason, fields);
+                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, noAdReason, fields, mergeFields);
                 }
                 else
                 {
-                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, fields);
+                    GameAnalytics.addAdEvent(adAction, adType, adSdkName, adPlacement, fields, mergeFields);
                 }
             }
             else

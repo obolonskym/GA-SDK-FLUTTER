@@ -20,26 +20,52 @@ class GameAnalyticsJS {
   external static void configureSdkGameEngineVersion(
       String sdkGameEngineVersion);
   external static void initialize(String gameKey, String secretKey);
-  external static void addBusinessEvent(String currency, int amount,
-      String itemType, String itemId, String cartType, Map fields);
-  external static void addResourceEvent(int flowType, String currency,
-      double amount, String itemType, String itemId, Map fields);
+  external static void addBusinessEvent(
+      String currency,
+      int amount,
+      String itemType,
+      String itemId,
+      String cartType,
+      Map fields,
+      bool mergeFields);
+  external static void addResourceEvent(
+      int flowType,
+      String currency,
+      double amount,
+      String itemType,
+      String itemId,
+      Map fields,
+      bool mergeFields);
   external static void addProgressionEvent(
       int addProgressionEvent,
       String progression01,
       String progression02,
       String progression03,
       double? score,
-      Map fields);
+      Map fields,
+      bool mergeFields);
   external static void addDesignEvent(
-      String eventId, double? value, Map fields);
-  external static void addErrorEvent(int severity, String message, Map fields);
-  external static void addAdEventWithNoAdReason(int adAction, int adType,
-      String adSdkName, String adPlacement, int noAdReason, Map fields);
-  external static void addAdEventWithDuration(int adAction, int adType,
-      String adSdkName, String adPlacement, int duration, Map fields);
+      String eventId, double? value, Map fields, bool mergeFields);
+  external static void addErrorEvent(
+      int severity, String message, Map fields, bool mergeFields);
+  external static void addAdEventWithNoAdReason(
+      int adAction,
+      int adType,
+      String adSdkName,
+      String adPlacement,
+      int noAdReason,
+      Map fields,
+      bool mergeFields);
+  external static void addAdEventWithDuration(
+      int adAction,
+      int adType,
+      String adSdkName,
+      String adPlacement,
+      int duration,
+      Map fields,
+      bool mergeFields);
   external static void addAdEvent(int adAction, int adType, String adSdkName,
-      String adPlacement, Map fields);
+      String adPlacement, Map fields, bool mergeFields);
   external static void setEnabledInfoLog(bool flag);
   external static void setEnabledVerboseLog(bool flag);
   external static void setEnabledManualSessionHandling(bool flag);
