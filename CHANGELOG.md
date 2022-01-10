@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.2.3**
+* removed imei identifiers and other alternative identifiers from user identifier logic (android)
+
 **1.2.2**
 * added error events to be sent for invalid custom event fields used
 * added optional mergeFields argument to event methods to merge with global custom fields instead of overwrite them

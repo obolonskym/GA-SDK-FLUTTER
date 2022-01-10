@@ -1,7 +1,7 @@
 #import "GameAnalyticsPlugin.h"
 #import <GameAnalytics/GameAnalytics.h>
 
-#define VERSION @"1.2.2"
+#define VERSION @"1.2.3"
 
 @implementation GameAnalyticsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
