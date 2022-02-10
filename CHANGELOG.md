@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.2.4**
+* added event uuid for events sent
+
 **1.2.3**
 * removed imei identifiers and other alternative identifiers from user identifier logic (android)
 
