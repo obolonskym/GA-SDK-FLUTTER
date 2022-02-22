@@ -24,7 +24,7 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
 {
     private MethodChannel channel;
     private Activity activity;
-    private static final String VERSION = "1.2.4";
+    private static final String VERSION = "1.2.5";
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding)
