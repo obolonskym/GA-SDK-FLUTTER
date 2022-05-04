@@ -9,7 +9,7 @@ import 'gameanalytics_js.dart';
 
 /// A web implementation of the Gameanalytics plugin.
 class GameAnalyticsWeb {
-  static final String VERSION = "1.2.6";
+  static final String VERSION = "1.2.7";
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(

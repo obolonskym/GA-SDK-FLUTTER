@@ -1,6 +1,9 @@
 Changelog
 ---------
 <!--(CHANGELOG_TOP)-->
+**1.2.7**
+* updated ios libs
+
 **1.2.6**
 * updated ios library version
 
