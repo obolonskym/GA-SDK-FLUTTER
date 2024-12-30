@@ -250,6 +250,26 @@ class GameAnalytics {
     await _channel.invokeMethod('addAdEvent', arguments);
   }
 
+  /// Add new impression max event
+  ///
+  /// Usage:
+  /// GameAnalytics.addImpressionMaxEvent({
+  ///   "version": AppLovinSdk.VERSION,
+  ///   "fields": String jsonEncode( {
+  ///              "country": AppLovinSdk.getInstance(referenceToActivity).getConfiguration().getCountryCode(),
+  ///              "network_name": ad.getNetworkName(),
+  ///              "adunit_id": ad.getAdUnitId(),
+  ///              "adunit_format": ad.getFormat().getLabel(),
+  ///              "placement": ad.getPlacement()),
+  ///              "creative_id": ad.getCreativeId(),
+  ///              "revenue": ad.getRevenue(),
+  ///
+  /// });
+  static Future<void> addImpressionMaxEvent([dynamic arguments]) async {
+    await _channel.invokeMethod('addImpressionMaxEvent', arguments);
+  }
+
+
   /// Enable info logging to console
   static Future<void> setEnabledInfoLog(bool flag) async {
     await _channel.invokeMethod('setEnabledInfoLog', {'flag': flag});
