@@ -391,6 +391,15 @@ public class GameAnalyticsPlugin implements FlutterPlugin, MethodCallHandler, Ac
                 result.error("ERROR", "addAdEvent: adAction or adType argument could not be parsed to the correct type", null);
             }
         }
+        else if (call.method.equals("addImpressionMaxEvent"))
+        {
+            String version = call.argument("version");
+            String fields = "{}";
+            if (call.hasArgument("fields")) {
+                fields = call.argument("fields");
+            }
+            GameAnalytics.addImpressionMaxEvent(version, fields);
+        }
         else if (call.method.equals("setEnabledInfoLog"))
         {
             Boolean flag = call.argument("flag");
