@@ -289,6 +289,22 @@
             [GameAnalytics addAdEventWithAction:(GAAdAction)adAction adType:(GAAdType)adType adSdkName:adSdkName adPlacement:adPlacement noAdReason:(GAAdError)noAdReason customFields:fields_dict mergeFields:mergeFields];
         }
     }
+
+    else if ([@"addImpressionMaxEvent" isEqualToString:call.method])
+    {
+        NSMutableDictionary* args = call.arguments;
+
+        NSString* adNetworkVersion = args[@"version"];
+
+        NSDictionary *fields_dict = nil;
+        if (args[@"fields"])
+        {
+            fields_dict = [NSJSONSerialization JSONObjectWithData:[args[@"fields"] dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        }
+
+        [GameAnalytics addImpressionMaxEventWithAdNetworkVersion:adNetworkVersion impressionData:fields_dict];
+    }
+
     else if ([@"setEnabledInfoLog" isEqualToString:call.method])
     {
         NSMutableDictionary* args = call.arguments;
