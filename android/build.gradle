@@ -28,6 +28,8 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
+    namespace = "com.gameanalytics.gameanalytics_sdk"
+
 }
 
 dependencies {
